@@ -45,7 +45,9 @@ jobs:
             chmod 600 ~/.ssh/id_rsa
 
       - name: send file
-        run: scp -i ~/.ssh/id_rsa abc.sh ${{ secrets.USER }}@${{ secrets.HOST }}:/home/ubuntu
+        run: |
+           pwd
+           scp -i ~/.ssh/id_rsa abc.sh ${{ secrets.USER }}@${{ secrets.HOST }}:/home/ubuntu
 
       - name: Configure AWS CLI
         run: |
