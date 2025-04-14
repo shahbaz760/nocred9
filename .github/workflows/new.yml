@@ -13,9 +13,6 @@ jobs:
       - name: get_code     
         uses: actions/checkout@v4
 
-      - name: send file
-        run: scp abc.sh ${{ secrets.USER }}@${{ secrets.HOST }}:/home/ubuntu
-
       - name: Configure AWS CLI
         run: |
             aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -46,6 +43,9 @@ jobs:
             mkdir -p ~/.ssh
             echo "${{ secrets.EC2_SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
             chmod 600 ~/.ssh/id_rsa
+
+      - name: send file
+        run: scp -i ~/.ssh/id_rsa abc.sh ${{ secrets.USER }}@${{ secrets.HOST }}:/home/ubuntu
 
       - name: Configure AWS CLI
         run: |
