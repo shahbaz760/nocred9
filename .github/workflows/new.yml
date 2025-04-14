@@ -38,14 +38,15 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
+      - name: get_code     
+        uses: actions/checkout@v4
+
+
       - name: Set up SSH key for EC2 access # hdghghg
         run: |
             mkdir -p ~/.ssh
             echo "${{ secrets.EC2_SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
             chmod 600 ~/.ssh/id_rsa
-
-      - name: get_code     
-        uses: actions/checkout@v4
 
       - name: send file
         run: scp -i ~/.ssh/id_rsa abc.sh ${{ secrets.USER }}@${{ secrets.HOST }}:/home/ubuntu
