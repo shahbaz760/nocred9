@@ -48,7 +48,7 @@ jobs:
         run: |
            ls
            pwd
-           scp -i ~/.ssh/id_rsa /home/runner/work/nocred9/test.yml ${{ secrets.USER }}@${{ secrets.HOST }}:/home/ubuntu
+           scp -i ~/.ssh/id_rsa /home/runner/work/nocred9/nocred9/test.yml ${{ secrets.USER }}@${{ secrets.HOST }}:/home/ubuntu
 
       - name: Configure AWS CLI
         run: |
