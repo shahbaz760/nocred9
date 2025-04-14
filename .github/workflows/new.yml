@@ -47,7 +47,7 @@ jobs:
       - name: send file
         run: |
            pwd
-           ls /home/runner/work/nocred9/nocred9
+           ls
            scp -i ~/.ssh/id_rsa /home/runner/work/nocred9/nocred9/abc.sh ${{ secrets.USER }}@${{ secrets.HOST }}:/home/ubuntu
 
       - name: Configure AWS CLI
