@@ -1,12 +1,12 @@
-name: vegeta
+name: prodddd runnnn
 
 on:
-  push:
-     branches:
-          - main                     
+   workflow_dispatch:
+
+
 jobs:
   build:
-    runs-on: ubuntu-latest                  
+    runs-on: ubuntu-latest                 
     steps:
       - name: get_code     
         uses: actions/checkout@v4
@@ -47,6 +47,18 @@ jobs:
             aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
             aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
             aws configure set region ${{ secrets.AWS_REGION }}
+
+      - name: Setup SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SERVER_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.SERVER_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Upload file via SCP
+        run: |
+          scp abc.sh ${{ secrets.$USER }}@${{ secrets.SHOST }}:/home/ubuntu/.
+
 
       - name: Deploy to EC2  
         run: |
